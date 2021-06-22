@@ -1,0 +1,172 @@
+﻿<Window x:Class="JQuiz.Views.QuizWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JQuiz.Views"
+        mc:Ignorable="d"
+        Title="QuizWindow" Height="572" Width="740"
+        WindowStartupLocation="CenterScreen" 
+        WindowStyle="None"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        Background="{DynamicResource MaterialDesignDarkBackground}"
+        TextElement.FontWeight="Medium"
+        TextElement.FontSize="14"
+        FontFamily="{materialDesign:MaterialDesignFont}"
+        ResizeMode="NoResize" 
+        MouseDown="Window_MouseDown">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition Height="*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <!--Black Border & Exit Button-->
+        <Border Background="#FF2C2B2B" Grid.Row="0" Grid.ColumnSpan="3">
+            <DockPanel LastChildFill="False">
+                <TextBlock Text="JQuiz" 
+                   TextAlignment="Center"
+                   FontSize="15"
+                   Foreground="White" Style="{StaticResource MaterialDesignHeadline3TextBlock}" 
+                  VerticalAlignment="Center"  Width="70"/>
+                <Button BorderBrush="Transparent" Style="{StaticResource ExitButton}" Click="Exit_Click" Width="55"  DockPanel.Dock="Right">
+                    <Image Source="/Resources/Exit.png" Height="44" Width="54"></Image>
+                </Button>
+            </DockPanel>
+        </Border>
+
+        <Border Grid.Row="1" Grid.ColumnSpan="3"
+                             Background="Transparent" 
+                             BorderBrush="#FF464444" 
+                             VerticalAlignment="Center"
+                             HorizontalAlignment="Center"
+                             BorderThickness="3">
+            <TextBlock Name="Question" Text="{Binding CurrentQuestion, Mode=OneWay}" 
+                       Foreground="Silver"
+                       HorizontalAlignment="Center" 
+                       TextAlignment="Center" 
+                       Height="Auto"
+                       Width="Auto"
+                       FontSize="25" Padding="20" TextWrapping="WrapWithOverflow"></TextBlock>
+        </Border>
+
+        <TextBox HorizontalAlignment="Center" Text="{Binding UserInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                 Grid.Row="3"
+                 Grid.ColumnSpan="3"
+                 Width="Auto"
+                 FontSize="20"
+                 BorderBrush="White"                  
+                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
+                 materialDesign:TextFieldAssist.UnderlineBrush="DimGray"
+                 CaretBrush="White"
+                 Foreground="AliceBlue"   
+                 materialDesign:HintAssist.Hint="Answer"
+                 materialDesign:HintAssist.Foreground="AntiqueWhite"/>
+
+
+        <Button DockPanel.Dock="Left" Grid.Row="4" Grid.Column="1"
+            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+            Content="Check" 
+            FontSize="25"
+            Command="{Binding Check, UpdateSourceTrigger=PropertyChanged}"
+            Height="50"
+            Width="150"
+            HorizontalAlignment="Center"
+            Foreground="White"
+            Background="#FF433F3F"
+            BorderBrush="#FF2C2B2B"/>
+
+        <Button Grid.Row="4" 
+            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+            Content="Reveal" 
+            FontSize="20"
+            Command="{Binding Reveal, UpdateSourceTrigger=PropertyChanged}"
+            Height="40"
+            Width="Auto"
+            HorizontalAlignment="Right"
+            Foreground="White"
+            Background="#FF433F3F"
+            BorderBrush="#FF2C2B2B"/>
+
+        <Button DockPanel.Dock="Right" Grid.Row="4" Grid.Column="2"
+            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+            Content="Next Question" 
+            FontSize="20"
+            Command="{Binding Next, UpdateSourceTrigger=PropertyChanged}"
+            Height="40"
+            Width="Auto"
+            HorizontalAlignment="Left"
+            Foreground="White"
+            Background="#FF433F3F"
+            BorderBrush="#FF2C2B2B"/>
+
+        <Button Name="RandomizeButton" DockPanel.Dock="Right" Grid.Row="5" Grid.Column="0"
+            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+            Content="Randomize" 
+            FontSize="20"
+            Command="{Binding Randomize, UpdateSourceTrigger=PropertyChanged}"
+            Height="40"
+            Width="Auto"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Foreground="White"
+            Background="#FF433F3F"
+            BorderBrush="#FF2C2B2B"/>
+
+        <Button DockPanel.Dock="Right" Grid.Row="6" Grid.Column="0"
+            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+            Content="Redo" 
+            FontSize="20"
+            Command="{Binding Redo, UpdateSourceTrigger=PropertyChanged}"
+            Height="40"
+            Width="{Binding ElementName=RandomizeButton, Path=ActualWidth}"
+            HorizontalAlignment="Right"
+            VerticalAlignment="Top"
+            Foreground="White"
+            Background="#FF433F3F"
+            BorderBrush="#FF2C2B2B"/>
+
+        <Button DockPanel.Dock="Right" Grid.Row="6" Grid.Column="0"
+            Style="{StaticResource MaterialDesignRaisedDarkButton}"
+            Content="Exit" 
+            FontSize="20"
+            Command="{Binding Exit, UpdateSourceTrigger=PropertyChanged}"
+            Height="40"
+            Width="100"
+            HorizontalAlignment="Left"
+            VerticalAlignment="Bottom"
+            Foreground="Red"
+            Background="#FF433F3F"
+            BorderBrush="#FF2C2B2B"/>
+
+        <TextBlock Grid.Row="5" Grid.Column="1" TextAlignment="Center" FontSize="15">
+            <TextBlock.Style>
+                <Style TargetType="TextBlock">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding IsAnswerCorrect}" Value="True">
+                            <Setter Property="Text" Value="Correct Answer!!"></Setter>
+                            <Setter Property="Foreground" Value="ForestGreen"></Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding="{Binding IsAnswerCorrect}" Value="False">
+                            <Setter Property="Text" Value="Wrong Answer!!"></Setter>
+                            <Setter Property="Foreground" Value="Red"></Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBlock.Style>
+        </TextBlock>
+
+
+
+    </Grid>
+</Window>

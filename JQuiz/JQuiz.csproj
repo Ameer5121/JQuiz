@@ -1,0 +1,25 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+	<UseWindowsForms>true</UseWindowsForms>
+	<ApplicationIcon>clipart295211.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Exit.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MaterialDesignThemes" Version="4.1.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Exit.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>
