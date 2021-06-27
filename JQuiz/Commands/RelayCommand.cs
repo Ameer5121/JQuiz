@@ -1,4 +1,5 @@
-﻿using System;
+﻿using JQuiz.Helper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,14 +10,18 @@ namespace JQuiz.Commands
 {
     public class RelayCommand : ICommand
     {
-        private readonly Action execute;
+        private readonly Action<SelectionType> execute;
+        private readonly Action execute2;
 
         private readonly Func<bool> canExecute;
+        public RelayCommand(Action<SelectionType> execute) : this(execute, canExecute: null)
+        {
+        }
         public RelayCommand(Action execute) : this(execute, canExecute: null)
         {
         }
 
-        public RelayCommand(Action execute, Func<bool> canExecute)
+        public RelayCommand(Action<SelectionType> execute, Func<bool> canExecute)
         {
             if (execute == null)
                 throw new ArgumentNullException("execute");
@@ -24,6 +29,15 @@ namespace JQuiz.Commands
             this.execute = execute;
             this.canExecute = canExecute;
         }
+        public RelayCommand(Action execute2, Func<bool> canExecute)
+        {
+            if (execute2 == null)
+                throw new ArgumentNullException("execute2");
+
+            this.execute2 = execute2;
+            this.canExecute = canExecute;
+        }
+
         public event EventHandler CanExecuteChanged
         {
             add { CommandManager.RequerySuggested += value; }
@@ -39,7 +53,8 @@ namespace JQuiz.Commands
 
         public void Execute(object parameter)
         {
-            this.execute();
+            if (execute != null) this.execute((SelectionType)int.Parse((string)parameter));
+            else execute2();
         }
     }
 }

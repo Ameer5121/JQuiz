@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using JQuiz.Commands;
 using JQuiz.Extensions;
+using JQuiz.Helper;
 
 namespace JQuiz.ViewModels
 {
@@ -49,7 +50,7 @@ namespace JQuiz.ViewModels
         }
         public ICommand Check => new RelayCommand(CheckAnswer, CanCheckAnswer);
         public ICommand Reveal => new RelayCommand(RevealAnswer);
-        public ICommand Next => new RelayCommand(SelectNextAnswer);
+        public ICommand Select => new RelayCommand(SelectAnswer);
         public ICommand Randomize => new RelayCommand(RandomizeQuestions);
         public ICommand Redo => new RelayCommand(StartOver);
         public ICommand Exit => new RelayCommand(ExitQuiz);
@@ -70,15 +71,13 @@ namespace JQuiz.ViewModels
             {
                 IsAnswerCorrect = false;
             }
-        }
-        private void SelectNextAnswer()
+        }                                                
+        private void SelectAnswer(SelectionType answerType)
         {
             if (_questionIndex < _questionsAndAnswers.Count - 1)
             {
-                if (_questionsAndAnswers.ElementAt(_questionIndex).Key == _currentQuestion)
-                {
-                    _questionIndex++;
-                }
+                if (answerType == SelectionType.Next) _questionIndex++;
+                else if (answerType == SelectionType.Previous && _questionIndex != 0) _questionIndex--;
                 var question = _questionsAndAnswers.ElementAt(_questionIndex);
                 CurrentQuestion = question.Key;
                 CurrentAnswer = question.Value;
@@ -87,9 +86,11 @@ namespace JQuiz.ViewModels
             else
             {
                 _questionIndex = 0;
-                SelectNextAnswer();
-            }           
+                SelectAnswer(SelectionType.CurrentIndex);
+            }                     
         }
+
+ 
         private void RandomizeQuestions()
         { 
             Dictionary<string, string> questionsAndAnswers = new Dictionary<string, string>();
@@ -99,7 +100,7 @@ namespace JQuiz.ViewModels
             questionsAndAnswers.AddSplittedContent(splittedContent);
             this._questionsAndAnswers = questionsAndAnswers;
             _questionIndex = 0;
-            SelectNextAnswer(); 
+            SelectAnswer(SelectionType.CurrentIndex); 
         }
 
 
@@ -121,7 +122,7 @@ namespace JQuiz.ViewModels
             questionsAndAnswers.AddSplittedContent(splittedContent);
             this._questionsAndAnswers = questionsAndAnswers;
             _questionIndex = 0;
-            SelectNextAnswer();
+            SelectAnswer(SelectionType.CurrentIndex);
         }
         private void ExitQuiz()
         {
