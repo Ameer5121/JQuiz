@@ -12,7 +12,10 @@ namespace JQuiz.Extensions
         {
             for (int x = 0; x < splittedContent.Length - 1; x++)
             {
-                dic.Add(splittedContent[x], splittedContent[++x]);
+                if (!dic.ContainsKey(splittedContent[x]))
+                {
+                    dic.Add(splittedContent[x], splittedContent[++x]);
+                }
             }
         }
     }
