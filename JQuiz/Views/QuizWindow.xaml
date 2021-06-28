@@ -16,7 +16,12 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         ResizeMode="NoResize" 
         MouseDown="Window_MouseDown">
-    <Grid>
+    <Window.InputBindings>
+        <KeyBinding Command="{Binding Check}" Key="Enter"></KeyBinding>
+        <KeyBinding Command="{Binding Select}" Key="Left" CommandParameter="0"></KeyBinding>
+        <KeyBinding Command="{Binding Select}" Key="Right" CommandParameter="1"></KeyBinding>
+    </Window.InputBindings>
+    <Grid Focusable="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -40,7 +45,7 @@
                    FontSize="15"
                    Foreground="White" Style="{StaticResource MaterialDesignHeadline3TextBlock}" 
                   VerticalAlignment="Center"  Width="70"/>
-                <Button BorderBrush="Transparent" Style="{StaticResource ExitButton}" Click="Exit_Click" Width="55"  DockPanel.Dock="Right">
+                <Button BorderBrush="Transparent" Style="{StaticResource ExitButton}" Click="Exit_Click" Width="55"  DockPanel.Dock="Right" Focusable="False">
                     <Image Source="/Resources/Exit.png" Height="44" Width="54"></Image>
                 </Button>
             </DockPanel>
@@ -61,7 +66,7 @@
                        FontSize="25" Padding="20" TextWrapping="WrapWithOverflow"></TextBlock>
         </Border>
 
-        <TextBox HorizontalAlignment="Center" Text="{Binding UserInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+        <TextBox x:Name="InputTextBox" HorizontalAlignment="Center" Text="{Binding UserInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
                  Grid.Row="3"
                  Grid.ColumnSpan="3"
                  Width="Auto"
@@ -75,7 +80,7 @@
                  materialDesign:HintAssist.Foreground="AntiqueWhite"/>
 
 
-        <Button DockPanel.Dock="Left" Grid.Row="4" Grid.Column="1"
+        <Button DockPanel.Dock="Left" Grid.Row="4" Grid.Column="1" Focusable="False"
             Style="{StaticResource MaterialDesignRaisedDarkButton}"
             Content="Check" 
             FontSize="25"
@@ -87,7 +92,7 @@
             Background="#FF433F3F"
             BorderBrush="#FF2C2B2B"/>
 
-        <Button Grid.Row="5" 
+        <Button Grid.Row="5" Focusable="False"
             Style="{StaticResource MaterialDesignRaisedDarkButton}"
             Content="Reveal" 
             FontSize="20"
@@ -99,7 +104,7 @@
             Background="#FF433F3F"
             BorderBrush="#FF2C2B2B"/>
 
-        <Button DockPanel.Dock="Right" Grid.Row="4" Grid.Column="2"
+        <Button DockPanel.Dock="Right" Grid.Row="4" Grid.Column="2" Focusable="False"
             Style="{StaticResource MaterialDesignRaisedDarkButton}"
             Content="Next Question" 
             FontSize="20"
@@ -111,7 +116,7 @@
             Background="#FF433F3F"
             BorderBrush="#FF2C2B2B"/>
 
-        <Button DockPanel.Dock="Right" Grid.Row="4" Grid.Column="0"
+        <Button DockPanel.Dock="Right" Grid.Row="4" Grid.Column="0" Focusable="False"
             Style="{StaticResource MaterialDesignRaisedDarkButton}"
             Content="Previous Question" 
             FontSize="20"
@@ -123,7 +128,7 @@
             Background="#FF433F3F"
             BorderBrush="#FF2C2B2B"/>
 
-        <Button Name="RandomizeButton" DockPanel.Dock="Right" Grid.Row="5" Grid.Column="1"
+        <Button Name="RandomizeButton" DockPanel.Dock="Right" Grid.Row="5" Grid.Column="1" Focusable="False"
             Style="{StaticResource MaterialDesignRaisedDarkButton}"
             Content="Randomize" 
             FontSize="20"
@@ -136,7 +141,7 @@
             Background="#FF433F3F"
             BorderBrush="#FF2C2B2B"/>
 
-        <Button DockPanel.Dock="Right" Grid.Row="5" Grid.Column="2"
+        <Button DockPanel.Dock="Right" Grid.Row="5" Grid.Column="2" Focusable="False"
             Style="{StaticResource MaterialDesignRaisedDarkButton}"
             Content="Redo" 
             FontSize="20"
@@ -149,12 +154,12 @@
             Background="#FF433F3F"
             BorderBrush="#FF2C2B2B"/>
 
-        <Button DockPanel.Dock="Right" Grid.Row="7" Grid.Column="0"
+        <Button DockPanel.Dock="Right" Grid.Row="7" Grid.Column="0" Focusable="False"
             Style="{StaticResource MaterialDesignRaisedDarkButton}"
             Content="Exit" 
             FontSize="20"
             Command="{Binding Exit, UpdateSourceTrigger=PropertyChanged}"
-            Height="40"
+            Height="50"
             Width="100"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"
@@ -178,8 +183,6 @@
                 </Style>
             </TextBlock.Style>
         </TextBlock>
-
-
 
     </Grid>
 </Window>

@@ -15,7 +15,11 @@
             <Style TargetType="Image">
                 <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"></Setter>
             </Style>
-        
+
+            <Style TargetType="{x:Type Grid}">
+                <Setter Property="FocusVisualStyle" Value="{x:Null}"></Setter>
+            </Style>
+               
         </ResourceDictionary>
     </Application.Resources>
 </Application>

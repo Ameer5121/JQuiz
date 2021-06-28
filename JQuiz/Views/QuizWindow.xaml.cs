@@ -31,11 +31,13 @@ namespace JQuiz.Views
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
             (DataContext as QuizViewModel).OnExit += ChangeWindow;
+            (DataContext as QuizViewModel).OnAnswerCheck += ResetTextBoxFocus;
         }
 
         private void OnUnLoaded(object sender, RoutedEventArgs e)
         {
             (DataContext as QuizViewModel).OnExit -= ChangeWindow;
+            (DataContext as QuizViewModel).OnAnswerCheck -= ResetTextBoxFocus;
             Loaded -= OnLoaded;
             Unloaded -= OnUnLoaded;
         }
@@ -53,6 +55,10 @@ namespace JQuiz.Views
             {
                 DragMove();
             }
+        }
+        private void ResetTextBoxFocus(object sender, EventArgs e)
+        {
+            InputTextBox.MoveFocus(new TraversalRequest(FocusNavigationDirection.Next));
         }
         private void Exit_Click(object sender, RoutedEventArgs e)
         {

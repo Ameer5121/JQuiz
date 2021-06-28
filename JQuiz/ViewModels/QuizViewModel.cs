@@ -20,6 +20,7 @@ namespace JQuiz.ViewModels
         private int _questionIndex = 0;
         private IDictionary<string, string> _questionsAndAnswers;
         public event EventHandler OnExit;
+        public event EventHandler OnAnswerCheck;
 
         public QuizViewModel(Dictionary<string, string> questionsAndAnswers, string rawContent)
         {
@@ -48,28 +49,25 @@ namespace JQuiz.ViewModels
             get => _userInput;
             set => SetPropertyValue(ref _userInput, value);
         }
-        public ICommand Check => new RelayCommand(CheckAnswer, CanCheckAnswer);
+        public ICommand Check => new RelayCommand(CheckAnswer);
         public ICommand Reveal => new RelayCommand(RevealAnswer);
         public ICommand Select => new RelayCommand(SelectAnswer);
         public ICommand Randomize => new RelayCommand(RandomizeQuestions);
         public ICommand Redo => new RelayCommand(StartOver);
         public ICommand Exit => new RelayCommand(ExitQuiz);
 
-
-        private bool CanCheckAnswer()
-        {
-            return string.IsNullOrEmpty(_userInput) ? false : true;
-        }
-
         private void CheckAnswer()
         {
             if (_userInput == _questionsAndAnswers[_currentQuestion])
             {
                 IsAnswerCorrect = true;
+                UserInput = null;
+                ResetFocus();
             }
             else
             {
                 IsAnswerCorrect = false;
+                UserInput = null;
             }
         }                                                
         private void SelectAnswer(SelectionType answerType)
@@ -113,6 +111,10 @@ namespace JQuiz.ViewModels
         {
             UserInput = null;
             IsAnswerCorrect = null;
+        }
+        private void ResetFocus()
+        {
+            OnAnswerCheck?.Invoke(this, EventArgs.Empty);
         }
         private void StartOver()
         {
