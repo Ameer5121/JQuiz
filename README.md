@@ -12,7 +12,7 @@ Once finished, you can then inject it into the application to quiz you about the
 ![unknown](https://user-images.githubusercontent.com/71935713/123854871-e8f11e00-d927-11eb-9b59-c36c3c8a470b.png)
 
 
-# Functionality And ShortCuts
+# Functionality And Shortcuts
 * Up Arrow key to select/deselect the TextBox.
 * Down Arrow key to Reveal the answer.
 * Left/Right Arrow keys to navigate between the next and the previous questions.
