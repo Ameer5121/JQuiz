@@ -64,5 +64,23 @@ namespace JQuiz.Views
         {
             Application.Current.Shutdown();
         }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Up && !InputTextBox.IsFocused)
+            {
+                Keyboard.Focus(InputTextBox);
+            }
+        }
+
+        private void InputTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Up)
+            {
+                ResetTextBoxFocus(this, EventArgs.Empty);
+                e.Handled = true;
+            }
+        }
+
     }
 }
