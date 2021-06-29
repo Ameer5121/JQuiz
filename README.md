@@ -9,6 +9,6 @@ Open up a .txt file and and you can write Questions and Answers with special syn
 
 Once finished, you can then inject it into the application to quiz you about them.
 
-![unknown](https://user-images.githubusercontent.com/71935713/123854750-c6f79b80-d927-11eb-9353-79a42101088f.png)
+![unknown](https://user-images.githubusercontent.com/71935713/123854871-e8f11e00-d927-11eb-9b59-c36c3c8a470b.png)
 
 
