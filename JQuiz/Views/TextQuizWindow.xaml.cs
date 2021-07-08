@@ -18,11 +18,11 @@ namespace JQuiz.Views
     /// <summary>
     /// Interaction logic for QuizWindow.xaml
     /// </summary>
-    public partial class QuizWindow : Window
+    public partial class TextQuizWindow : Window
     {
-        public QuizWindow(Dictionary<string, string> questionsAndAnswers, string rawContent)
+        public TextQuizWindow(Dictionary<string, string> questionsAndAnswers, string rawContent)
         {
-            InitializeComponent();
+            InitializeComponent();         
             DataContext = new QuizViewModel(questionsAndAnswers, rawContent);
             Unloaded += OnUnLoaded;
             Loaded += OnLoaded;

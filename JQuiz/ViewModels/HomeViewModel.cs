@@ -9,6 +9,8 @@ using System.Windows.Forms;
 using System.IO;
 using JQuiz.Events;
 using JQuiz.Extensions;
+using JQuiz.Helper;
+using JQuiz.Helper.Interfaces;
 
 namespace JQuiz.ViewModels
 {
@@ -27,7 +29,7 @@ namespace JQuiz.ViewModels
         }
         public ICommand Choose => new RelayCommand(ChooseFile);
         public ICommand Start => new RelayCommand(StartQuiz, CanStartQuiz);
-
+        public IQuiz CurrentQuizMode { get; set; }
         private void ChooseFile()
         {
             OpenFileDialog fileDialog = new OpenFileDialog();
@@ -45,10 +47,15 @@ namespace JQuiz.ViewModels
         {
             return _fileSelected == false ? false : true;
         }
-        private void StartQuiz()
+        public void StartQuiz()
         {
             _questionsAndAnswers = GetContent();
-            OnQuizStart?.Invoke(this, new QuizEventArgs { QuestionsAndAnswers = this._questionsAndAnswers, RawContent = this._rawContent});
+            OnQuizStart?.Invoke(this, new QuizEventArgs
+            {
+                QuestionsAndAnswers = this._questionsAndAnswers,
+                RawContent = this._rawContent,
+                CurrentQuizMode = this.CurrentQuizMode
+            });
         }
 
         private Dictionary<string, string> GetContent()

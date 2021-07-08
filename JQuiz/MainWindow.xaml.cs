@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using JQuiz.Views;
+using JQuiz.Helper;
 
 namespace JQuiz
 {
@@ -23,30 +24,31 @@ namespace JQuiz
     /// </summary>
     public partial class MainWindow : Window
     {
+        private HomeViewModel _hvm;
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();       
             DataContext = new HomeViewModel();
+            _hvm = DataContext as HomeViewModel;
             Unloaded += OnUnLoaded;
             Loaded += OnLoaded;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            (DataContext as HomeViewModel).OnQuizStart += ChangeWindow;
+            _hvm.OnQuizStart += ChangeWindow;
         }
 
         private void OnUnLoaded(object sender, RoutedEventArgs e)
         {
-            (DataContext as HomeViewModel).OnQuizStart -= ChangeWindow;
+            _hvm.OnQuizStart -= ChangeWindow;
             Loaded -= OnLoaded;
             Unloaded -= OnUnLoaded;
         }
 
         private void ChangeWindow(object sender, QuizEventArgs e)
         {
-            QuizWindow quizWindow = new QuizWindow(e.QuestionsAndAnswers, e.RawContent);
-            quizWindow.Show();
+            e.CurrentQuizMode.StartQuiz(e.QuestionsAndAnswers, e.RawContent);
             this.Close();
         }
 
@@ -56,6 +58,10 @@ namespace JQuiz
             {
                 DragMove();
             }
+        }
+        private void TextMode_Click(object sender, RoutedEventArgs e)
+        {
+            _hvm.CurrentQuizMode = new TextQuizMode();
         }
 
         private void Exit_Click(object sender, RoutedEventArgs e)

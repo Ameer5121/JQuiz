@@ -18,35 +18,69 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         ResizeMode="NoResize" 
         MouseDown="Window_MouseDown">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="*"></RowDefinition>
-        </Grid.RowDefinitions>
-        <!--Black Border & Exit Button-->
-        <Border Background="#FF2C2B2B" Grid.Row="0">
-            <DockPanel LastChildFill="False">
-                <TextBlock Text="JQuiz" 
+    <materialDesign:DialogHost Grid.Column="1" Grid.Row="2" Style="{DynamicResource MaterialDesignEmbeddedDialogHost}" CloseOnClickAway="True">
+        <materialDesign:DialogHost.DialogContent>
+            <Grid Background="Transparent" Width="250" Height="150">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Select Quiz Mode:" Grid.ColumnSpan="2" Foreground="Beige"  FontSize="20" Width="Auto" HorizontalAlignment="Center" />
+                <Button Content="TextMode" Padding="0" Background="Transparent" BorderBrush="Transparent" Foreground="DeepSkyBlue" FontSize="15" Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                        Click="TextMode_Click" Command="{Binding Start}"></Button>
+                <Button Content="SelectionMode" Padding="0" Background="Transparent" BorderBrush="Transparent" FontSize="15" Foreground="DeepSkyBlue" Grid.Column="2" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"
+                        ></Button>
+            </Grid>
+
+        </materialDesign:DialogHost.DialogContent>
+        <Grid>
+
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <!--Black Border & Exit Button-->
+            <Border Background="#FF2C2B2B" Grid.Row="0" Grid.ColumnSpan="3">
+                <DockPanel LastChildFill="False">
+                    <TextBlock Text="JQuiz" 
                    TextAlignment="Center"
                    FontSize="15"
                    Foreground="White" Style="{StaticResource MaterialDesignHeadline3TextBlock}" 
                   VerticalAlignment="Center"  Width="70"/>
-                <Button BorderBrush="Transparent" Style="{StaticResource ExitButton}" Click="Exit_Click" Width="55" DockPanel.Dock="Right">
-                    <Image Source="/Resources/Exit.png" Height="44" Width="54"></Image>
-                </Button>
-            </DockPanel>
-        </Border>
+                    <Button BorderBrush="Transparent" Style="{StaticResource ExitButton}" Click="Exit_Click" Width="55" DockPanel.Dock="Right">
+                        <Image Source="/Resources/Exit.png" Height="44" Width="54"></Image>
+                    </Button>
+                </DockPanel>
+            </Border>
 
 
-        <Button Command="{Binding Choose}" Background="#FF433F3F" Width="160" Height="73" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" BorderBrush="Transparent" Content="Choose File" Foreground="Silver"></Button>
-        <Button Command="{Binding Start}" Height="73" Background="#FF433F3F" VerticalAlignment="Top" Grid.Row="2" Content="Start" BorderBrush="Transparent" Foreground="Silver" Margin="198,10,198,0"/>
-        <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBlock  Text="File Name:" Height="Auto" Width="Auto" TextAlignment="Center" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="Silver" ></TextBlock>
-            <TextBlock Text="{Binding FileName}" Height="Auto" Width="Auto" TextAlignment="Center" Margin="5,10,0,0" VerticalAlignment="Top" Foreground="Silver" ></TextBlock>
-        </StackPanel>
+           
+            <Button Command="{x:Static materialDesign:DialogHost.OpenDialogCommand}" Height="73" Width="160" HorizontalAlignment="Center" Grid.Column="1" Background="#FF433F3F" VerticalAlignment="Top" Grid.Row="2" Content="Start" BorderBrush="Transparent" Foreground="Silver"/>
 
 
-    </Grid>
+            <Button Command="{Binding Choose}" Background="#FF433F3F" Width="160" Height="73" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" BorderBrush="Transparent" Content="Choose File" Foreground="Silver"></Button>
+
+
+
+            <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <TextBlock  Text="File Name:" Height="Auto" Width="Auto" TextAlignment="Center" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="Silver" ></TextBlock>
+                <TextBlock Text="{Binding FileName}" Height="Auto" Width="Auto" TextAlignment="Center" Margin="5,10,0,0" VerticalAlignment="Top" Foreground="Silver" ></TextBlock>
+            </StackPanel>
+
+
+        </Grid>
+    </materialDesign:DialogHost>
+   
 </Window>

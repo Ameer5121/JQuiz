@@ -1,4 +1,6 @@
-﻿using System;
+﻿using JQuiz.Helper;
+using JQuiz.Helper.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,5 +12,6 @@ namespace JQuiz.Events
     {
         public Dictionary<string, string> QuestionsAndAnswers { get; set; }
         public string RawContent { get; set; }
+        public IQuiz CurrentQuizMode { get; set; }
     }
 }
