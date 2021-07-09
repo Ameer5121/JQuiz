@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace JQuiz.ViewModels
 {
-    public class ViewModelBase : INotifyPropertyChanged
+    class ViewModelBase : INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
         protected bool SetPropertyValue<T>(ref T field, T value, [CallerMemberName] string propertyName = null)

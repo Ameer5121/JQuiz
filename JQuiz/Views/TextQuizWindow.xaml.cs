@@ -23,21 +23,21 @@ namespace JQuiz.Views
         public TextQuizWindow(Dictionary<string, string> questionsAndAnswers, string rawContent)
         {
             InitializeComponent();         
-            DataContext = new QuizViewModel(questionsAndAnswers, rawContent);
+            DataContext = new TextQuizViewModel(questionsAndAnswers, rawContent);
             Unloaded += OnUnLoaded;
             Loaded += OnLoaded;
         }
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            (DataContext as QuizViewModel).OnExit += ChangeWindow;
-            (DataContext as QuizViewModel).OnAnswerCheck += ResetTextBoxFocus;
+            (DataContext as TextQuizViewModel).OnExit += ChangeWindow;
+            (DataContext as TextQuizViewModel).OnAnswerCheck += ResetTextBoxFocus;
         }
 
         private void OnUnLoaded(object sender, RoutedEventArgs e)
         {
-            (DataContext as QuizViewModel).OnExit -= ChangeWindow;
-            (DataContext as QuizViewModel).OnAnswerCheck -= ResetTextBoxFocus;
+            (DataContext as TextQuizViewModel).OnExit -= ChangeWindow;
+            (DataContext as TextQuizViewModel).OnAnswerCheck -= ResetTextBoxFocus;
             Loaded -= OnLoaded;
             Unloaded -= OnUnLoaded;
         }

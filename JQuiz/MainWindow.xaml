@@ -18,7 +18,7 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         ResizeMode="NoResize" 
         MouseDown="Window_MouseDown">
-    <materialDesign:DialogHost Grid.Column="1" Grid.Row="2" Style="{DynamicResource MaterialDesignEmbeddedDialogHost}" CloseOnClickAway="True">
+    <materialDesign:DialogHost CloseOnClickAway="True">
         <materialDesign:DialogHost.DialogContent>
             <Grid Background="Transparent" Width="250" Height="150">
                 <Grid.ColumnDefinitions>
@@ -34,7 +34,7 @@
                 <Button Content="TextMode" Padding="0" Background="Transparent" BorderBrush="Transparent" Foreground="DeepSkyBlue" FontSize="15" Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"
                         Click="TextMode_Click" Command="{Binding Start}"></Button>
                 <Button Content="SelectionMode" Padding="0" Background="Transparent" BorderBrush="Transparent" FontSize="15" Foreground="DeepSkyBlue" Grid.Column="2" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"
-                        ></Button>
+                        Command="{Binding Start}"></Button>
             </Grid>
 
         </materialDesign:DialogHost.DialogContent>
@@ -74,9 +74,9 @@
 
 
 
-            <StackPanel Grid.Row="3" Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                <TextBlock  Text="File Name:" Height="Auto" Width="Auto" TextAlignment="Center" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="Silver" ></TextBlock>
-                <TextBlock Text="{Binding FileName}" Height="Auto" Width="Auto" TextAlignment="Center" Margin="5,10,0,0" VerticalAlignment="Top" Foreground="Silver" ></TextBlock>
+            <StackPanel Grid.Row="3" Orientation="Horizontal" HorizontalAlignment="Center" Grid.ColumnSpan="3">
+                <TextBlock  Text="File Name:" Height="Auto" Width="Auto" TextAlignment="Center" Grid.ColumnSpan="3" Margin="10,10,0,0" VerticalAlignment="Top" Foreground="Silver" ></TextBlock>
+                <TextBlock Text="{Binding FileName}" Height="Auto" Width="Auto" Grid.ColumnSpan="3"  TextAlignment="Center" Margin="5,10,0,0" VerticalAlignment="Top" Foreground="Silver" ></TextBlock>
             </StackPanel>
 
 
