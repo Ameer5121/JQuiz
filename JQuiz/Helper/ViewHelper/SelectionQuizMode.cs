@@ -1,4 +1,5 @@
 ﻿using JQuiz.Helper.Interfaces;
+using JQuiz.Views;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,8 @@ namespace JQuiz.Helper
     {
         public void StartQuiz(Dictionary<string, string> questionsAndAnswers, string rawContent)
         {
-            
+            SelectionQuizWindow quizWindow = new SelectionQuizWindow(questionsAndAnswers, rawContent);
+            quizWindow.Show();
         }
     }
 }

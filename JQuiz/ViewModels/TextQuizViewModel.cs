@@ -14,6 +14,7 @@ namespace JQuiz.ViewModels
     {
         private string _currentAnswer;
         private string _userInput;
+        public event EventHandler OnAnswerCheck;
         public TextQuizViewModel(Dictionary<string, string> questionsAndAnswers, string rawContent)
         {
             this._questionsAndAnswers = questionsAndAnswers;
@@ -67,7 +68,10 @@ namespace JQuiz.ViewModels
         {
             UserInput = _currentAnswer;
         }
-
+        private void ResetFocus()
+        {
+            OnAnswerCheck?.Invoke(this, EventArgs.Empty);
+        }
         protected override void Reset()
         {
             UserInput = null;

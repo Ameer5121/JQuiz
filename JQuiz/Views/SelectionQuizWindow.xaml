@@ -1,4 +1,4 @@
-﻿<Window x:Class="JQuiz.Views.TextQuizWindow"
+﻿<Window x:Class="JQuiz.Views.SelectionQuizWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
@@ -6,7 +6,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:JQuiz.Views"
         mc:Ignorable="d"
-        Title="QuizWindow" Height="780" Width="1038"
+        Title="SelectionQuizWindow" Height="780" Width="1038"
         WindowStartupLocation="CenterScreen" 
         WindowStyle="None"
         TextElement.Foreground="{DynamicResource MaterialDesignBody}"
@@ -14,13 +14,7 @@
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="{materialDesign:MaterialDesignFont}"
-        ResizeMode="NoResize" 
-        MouseDown="Window_MouseDown"
-        KeyDown="Window_KeyDown">
-    <Window.InputBindings>
-        <KeyBinding Command="{Binding Select}" Key="Left" CommandParameter="0"></KeyBinding>
-        <KeyBinding Command="{Binding Select}" Key="Right" CommandParameter="1"></KeyBinding>
-    </Window.InputBindings>
+        ResizeMode="NoResize">
     <Grid x:Name="MainGrid" Focusable="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -66,26 +60,7 @@
                        FontSize="25" Padding="20" TextWrapping="WrapWithOverflow"></TextBlock>
         </Border>
 
-        <TextBox x:Name="InputTextBox" HorizontalAlignment="Center" Text="{Binding UserInput, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                 Grid.Row="3"
-                 Grid.ColumnSpan="3"
-                 Width="Auto"
-                 FontSize="30"
-                 BorderBrush="White"                  
-                 Style="{StaticResource MaterialDesignFloatingHintTextBox}"
-                 materialDesign:TextFieldAssist.UnderlineBrush="DimGray"
-                 CaretBrush="White"
-                 Foreground="AliceBlue"   
-                 materialDesign:HintAssist.Hint="Answer"
-                 materialDesign:HintAssist.Foreground="AntiqueWhite"
-                 PreviewKeyDown="InputTextBox_KeyDown">
-            <TextBox.InputBindings>
-                <KeyBinding Command="{Binding Check}" Key="Enter"></KeyBinding>
-                <KeyBinding Command="{Binding Reveal}" Key="Down"></KeyBinding>
-            </TextBox.InputBindings>
-        </TextBox>
-                
-                 
+
 
 
         <Button DockPanel.Dock="Left" Grid.Row="4" Grid.Column="1" Focusable="False"

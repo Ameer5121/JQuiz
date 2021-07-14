@@ -19,14 +19,11 @@ namespace JQuiz.ViewModels
         protected string _rawContent;
         public bool? _isAnswerCorrect = null;
         protected IDictionary<string, string> _questionsAndAnswers;
-        public event EventHandler OnExit;
-        public event EventHandler OnAnswerCheck;
         public ICommand Check => new RelayCommand(CheckAnswer);
         public ICommand Reveal => new RelayCommand(RevealAnswer);
         public ICommand Select => new RelayCommand(SelectAnswer, CanChangeQuestion);
         public ICommand Randomize => new RelayCommand(RandomizeQuestions, CanChangeQuestion);
         public ICommand Redo => new RelayCommand(StartOver, CanChangeQuestion);
-        public ICommand Exit => new RelayCommand(ExitQuiz);
         public string CurrentQuestion
         {
             get => _currentQuestion;
@@ -71,15 +68,6 @@ namespace JQuiz.ViewModels
             this._questionsAndAnswers = questionsAndAnswers;
             _questionIndex = 0;
             SelectAnswer(SelectionType.CurrentIndex);
-        }
-
-        protected void ResetFocus()
-        {
-            OnAnswerCheck?.Invoke(this, EventArgs.Empty);
-        }
-        protected void ExitQuiz()
-        {
-            OnExit?.Invoke(this, EventArgs.Empty);
         }
     }
 }

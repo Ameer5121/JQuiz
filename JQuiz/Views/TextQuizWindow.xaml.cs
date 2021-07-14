@@ -12,6 +12,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using JQuiz.Helper.Extensions;
 
 namespace JQuiz.Views
 {
@@ -30,23 +31,19 @@ namespace JQuiz.Views
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            (DataContext as TextQuizViewModel).OnExit += ChangeWindow;
             (DataContext as TextQuizViewModel).OnAnswerCheck += ResetTextBoxFocus;
         }
 
         private void OnUnLoaded(object sender, RoutedEventArgs e)
         {
-            (DataContext as TextQuizViewModel).OnExit -= ChangeWindow;
             (DataContext as TextQuizViewModel).OnAnswerCheck -= ResetTextBoxFocus;
             Loaded -= OnLoaded;
             Unloaded -= OnUnLoaded;
         }
 
-        private void ChangeWindow(object sender, EventArgs e)
+        private void ChangeWindow(object sender, RoutedEventArgs e)
         {
-            MainWindow home = new MainWindow();
-            home.Show();
-            this.Close();
+            this.ChangeToMainWindow();
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
