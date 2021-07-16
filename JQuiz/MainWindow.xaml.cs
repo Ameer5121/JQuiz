@@ -63,6 +63,10 @@ namespace JQuiz
         {
             _hvm.CurrentQuizMode = new TextQuizMode();
         }
+        private void SelectionMode_Click(object sender, RoutedEventArgs e)
+        {
+            _hvm.CurrentQuizMode = new SelectionQuizMode();
+        }
 
         private void Exit_Click(object sender, RoutedEventArgs e)
         {

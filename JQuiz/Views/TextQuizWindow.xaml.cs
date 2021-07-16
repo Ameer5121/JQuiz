@@ -36,7 +36,7 @@ namespace JQuiz.Views
 
         private void OnUnLoaded(object sender, RoutedEventArgs e)
         {
-            (DataContext as TextQuizViewModel).OnAnswerCheck -= ResetTextBoxFocus;
+           //(DataContext as TextQuizViewModel).OnAnswerCheck -= ResetTextBoxFocus;
             Loaded -= OnLoaded;
             Unloaded -= OnUnLoaded;
         }
@@ -77,6 +77,11 @@ namespace JQuiz.Views
                 ResetTextBoxFocus(this, EventArgs.Empty);
                 e.Handled = true;
             }
+        }
+
+         ~TextQuizWindow()
+        {
+            MessageBox.Show("yes");
         }
 
     }

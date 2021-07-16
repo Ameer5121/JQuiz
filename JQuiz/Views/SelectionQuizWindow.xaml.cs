@@ -24,6 +24,7 @@ namespace JQuiz.Views
         public SelectionQuizWindow(Dictionary<string, string> questionsAndAnswers, string rawContent)
         {
             InitializeComponent();
+            DataContext = new SelectionQuizViewModel(questionsAndAnswers, rawContent);
         }
 
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)

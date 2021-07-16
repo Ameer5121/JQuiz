@@ -34,7 +34,7 @@
                 <Button Content="TextMode" Padding="0" Background="Transparent" BorderBrush="Transparent" Foreground="DeepSkyBlue" FontSize="15" Grid.Column="0" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"
                         Click="TextMode_Click" Command="{Binding Start}"></Button>
                 <Button Content="SelectionMode" Padding="0" Background="Transparent" BorderBrush="Transparent" FontSize="15" Foreground="DeepSkyBlue" Grid.Column="2" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center"
-                        Command="{Binding Start}" IsEnabled="False"></Button>
+                        Command="{Binding Start}" Click="SelectionMode_Click"></Button>
             </Grid>
 
         </materialDesign:DialogHost.DialogContent>
