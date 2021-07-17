@@ -16,7 +16,9 @@ namespace JQuiz.ViewModels
     {
         protected int _questionIndex = 0;
         protected string _currentQuestion;
+        protected string _currentAnswer;
         protected string _rawContent;
+        protected string _userInput;
         public bool? _isAnswerCorrect = null;
         protected IDictionary<string, string> _questionsAndAnswers;
         public ICommand Check => new RelayCommand(CheckAnswer);
@@ -24,6 +26,14 @@ namespace JQuiz.ViewModels
         public ICommand Select => new RelayCommand(SelectAnswer, CanChangeQuestion);
         public ICommand Randomize => new RelayCommand(RandomizeQuestions, CanChangeQuestion);
         public ICommand Redo => new RelayCommand(StartOver, CanChangeQuestion);
+
+        protected QuizViewModelBase(Dictionary<string, string> questionsAndAnswers, string rawContent)
+        {
+            this._questionsAndAnswers = questionsAndAnswers;
+            this._rawContent = rawContent;
+            _currentQuestion = _questionsAndAnswers.Keys.First();
+            _currentAnswer = _questionsAndAnswers[_currentQuestion];
+        }
         public string CurrentQuestion
         {
             get => _currentQuestion;
@@ -33,6 +43,11 @@ namespace JQuiz.ViewModels
         {
             get => _isAnswerCorrect;
             set => SetPropertyValue(ref _isAnswerCorrect, value);
+        }
+        public string UserInput
+        {
+            get => _userInput;
+            set => SetPropertyValue(ref _userInput, value);
         }
 
         protected abstract void CheckAnswer();

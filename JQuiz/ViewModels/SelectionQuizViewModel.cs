@@ -9,10 +9,9 @@ namespace JQuiz.ViewModels
 {
     class SelectionQuizViewModel : QuizViewModelBase
     {
-        public SelectionQuizViewModel(Dictionary<string, string> questionsAndAnswers, string rawContent)
+
+        public SelectionQuizViewModel(Dictionary<string, string> questionsAndAnswers, string rawContent) : base(questionsAndAnswers, rawContent)
         {
-            this._questionsAndAnswers = questionsAndAnswers;
-            this._rawContent = rawContent;
         }
 
         protected override void CheckAnswer()

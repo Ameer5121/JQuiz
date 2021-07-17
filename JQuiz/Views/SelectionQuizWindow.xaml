@@ -38,7 +38,7 @@
             <ColumnDefinition Width="*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
         <!--Black Border & Exit Button-->
-        <Border Background="#FF2C2B2B" Grid.Row="0" Grid.ColumnSpan="3">
+        <Border Background="#FF2C2B2B" Grid.Row="0" Grid.ColumnSpan="4">
             <DockPanel LastChildFill="False">
                 <TextBlock Text="JQuiz" 
                    TextAlignment="Center"

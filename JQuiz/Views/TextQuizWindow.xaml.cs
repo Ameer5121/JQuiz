@@ -36,9 +36,10 @@ namespace JQuiz.Views
 
         private void OnUnLoaded(object sender, RoutedEventArgs e)
         {
-           //(DataContext as TextQuizViewModel).OnAnswerCheck -= ResetTextBoxFocus;
+           (DataContext as TextQuizViewModel).OnAnswerCheck -= ResetTextBoxFocus;
             Loaded -= OnLoaded;
             Unloaded -= OnUnLoaded;
+            GC.Collect();
         }
 
         private void ChangeWindow(object sender, RoutedEventArgs e)
@@ -78,11 +79,5 @@ namespace JQuiz.Views
                 e.Handled = true;
             }
         }
-
-         ~TextQuizWindow()
-        {
-            MessageBox.Show("yes");
-        }
-
     }
 }

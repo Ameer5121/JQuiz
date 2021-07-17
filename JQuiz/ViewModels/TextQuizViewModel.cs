@@ -12,27 +12,15 @@ namespace JQuiz.ViewModels
 {
     class TextQuizViewModel : QuizViewModelBase
     {
-        private string _currentAnswer;
-        private string _userInput;
         public event EventHandler OnAnswerCheck;
-        public TextQuizViewModel(Dictionary<string, string> questionsAndAnswers, string rawContent)
+        public TextQuizViewModel(Dictionary<string, string> questionsAndAnswers, string rawContent) : base(questionsAndAnswers, rawContent)
         {
-            this._questionsAndAnswers = questionsAndAnswers;
-            this._rawContent = rawContent;
-            _currentQuestion = _questionsAndAnswers.Keys.First();
-            _currentAnswer = _questionsAndAnswers[_currentQuestion];
         }
         public string CurrentAnswer
         {
             get => _currentAnswer;
             set => SetPropertyValue(ref _currentAnswer, value);
         }
-        public string UserInput
-        {
-            get => _userInput;
-            set => SetPropertyValue(ref _userInput, value);
-        }
-
         protected override void CheckAnswer()
         {
             if (_userInput == _questionsAndAnswers[_currentQuestion])
