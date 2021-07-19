@@ -54,7 +54,8 @@ namespace JQuiz.ViewModels
         protected override void ResetInput()
         {
             _selectedAnswer = null;
-           
+            IsAnswerCorrect = null;
+            Reset?.Invoke(this, EventArgs.Empty);
         }
 
         private string[] InitializeRandomAnswers()

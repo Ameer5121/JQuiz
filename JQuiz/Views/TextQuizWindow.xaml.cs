@@ -39,7 +39,6 @@ namespace JQuiz.Views
            (DataContext as TextQuizViewModel).AnswerCheck -= ResetTextBoxFocus;
             Loaded -= OnLoaded;
             Unloaded -= OnUnLoaded;
-            GC.Collect();
         }
 
         private void ChangeWindow(object sender, RoutedEventArgs e)

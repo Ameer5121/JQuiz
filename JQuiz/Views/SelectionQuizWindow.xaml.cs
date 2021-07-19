@@ -28,7 +28,20 @@ namespace JQuiz.Views
             InitializeComponent();
             DataContext = new SelectionQuizViewModel(questionsAndAnswers, rawContent);
             _selectableButtons = new List<Button>();
+            Loaded += OnLoaded;
+            Unloaded -= OnUnLoaded;
         }
+        private void OnLoaded(object sender, RoutedEventArgs e)
+        {
+            (DataContext as SelectionQuizViewModel).Reset += ResetBorderBrush;
+        }
+        private void OnUnLoaded(object sender, RoutedEventArgs e)
+        {
+            (DataContext as SelectionQuizViewModel).Reset -= ResetBorderBrush;
+            Loaded -= OnLoaded;
+            Unloaded -= OnUnLoaded;
+        }
+
         private void Button_Loaded(object sender, RoutedEventArgs e)
         {
             Button button = sender as Button;
@@ -46,6 +59,10 @@ namespace JQuiz.Views
             _currentSelectedButton = button;
             _currentSelectedButton.BorderBrush = new SolidColorBrush(Colors.ForestGreen);
 
+        }
+        private void ResetBorderBrush(object sender, EventArgs e)
+        {
+            _currentSelectedButton.BorderBrush = new SolidColorBrush(Colors.Gray);
         }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
