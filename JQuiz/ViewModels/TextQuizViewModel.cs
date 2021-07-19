@@ -12,7 +12,7 @@ namespace JQuiz.ViewModels
 {
     class TextQuizViewModel : QuizViewModelBase
     {
-        public event EventHandler AnswerCheck;
+        public event EventHandler ResetWindowFocus;
         public TextQuizViewModel(Dictionary<string, string> questionsAndAnswers, string rawContent) : base(questionsAndAnswers, rawContent)
         {
         }
@@ -36,7 +36,7 @@ namespace JQuiz.ViewModels
         }
         private void ResetFocus()
         {
-            AnswerCheck?.Invoke(this, EventArgs.Empty);
+            ResetWindowFocus?.Invoke(this, EventArgs.Empty);
         }
         protected override void ResetInput()
         {
