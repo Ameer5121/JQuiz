@@ -4,7 +4,6 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:effects="clr-namespace:JQuiz.Helper.AttachedProperties"
         xmlns:local="clr-namespace:JQuiz.Views"
         mc:Ignorable="d"
         Title="SelectionQuizWindow" Height="780" Width="1038"
@@ -17,13 +16,10 @@
         FontFamily="{materialDesign:MaterialDesignFont}"
         ResizeMode="NoResize"
         MouseDown="Window_MouseDown">
-    <Window.Resources>
-        <effects:BorderSelectionEffect x:Key="BorderEffect"></effects:BorderSelectionEffect>
-    </Window.Resources>
     <Grid x:Name="MainGrid" Focusable="True">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
-            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="100"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="100"></RowDefinition>
@@ -66,10 +62,37 @@
                        FontSize="25" Padding="20" TextWrapping="WrapWithOverflow"></TextBlock>
         </Border>
 
-        <Border BorderBrush="Gray" Background="Transparent" Grid.Row="2" BorderThickness="3" Width="200" Height="150" effects:BorderSelectionEffect.SelectionEffect="True"></Border>
-        <Border BorderBrush="Gray" Grid.Column="1" Background="Transparent" Grid.Row="2" BorderThickness="3" Width="200" Height="150" effects:BorderSelectionEffect.SelectionEffect="True"></Border>
-        <Border BorderBrush="Gray" Grid.Column="2" Background="Transparent" Grid.Row="2" BorderThickness="3" Width="200" Height="150" effects:BorderSelectionEffect.SelectionEffect="True"></Border>
-        <Border BorderBrush="Gray" Grid.Column="3" Background="Transparent" Grid.Row="2" BorderThickness="3" Width="200" Height="150" effects:BorderSelectionEffect.SelectionEffect="True"></Border>
+
+        <Button Grid.Row="2" BorderBrush="Gray" BorderThickness="3" Background="Transparent" Width="200" Height="150" Command="{Binding SelectAnswerCommand}" 
+                    Loaded="Button_Loaded" 
+                    CommandParameter="{Binding ElementName=Answer1, Path=Text}"
+                    Click="ChangeButtonBorder">
+            <TextBlock x:Name="Answer1" Text="{Binding Answers[0]}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Foreground="White" TextWrapping="Wrap"></TextBlock>
+        </Button>
+
+        <Button Grid.Row="2" Grid.Column="1" BorderBrush="Gray" BorderThickness="3"  Background="Transparent" Width="200" Height="150" Command="{Binding SelectAnswerCommand}" 
+                   Loaded="Button_Loaded"  
+                   CommandParameter="{Binding ElementName=Answer2, Path=Text}"
+                   Click="ChangeButtonBorder">
+            <TextBlock Name="Answer2" Text="{Binding Answers[1]}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Foreground="White" TextWrapping="Wrap"></TextBlock>
+        </Button>
+
+
+        <Button Grid.Row="2" Grid.Column="2" BorderBrush="Gray" BorderThickness="3"  Background="Transparent" Width="200" Height="150" Command="{Binding SelectAnswerCommand}" 
+                   Loaded="Button_Loaded"
+                   CommandParameter="{Binding ElementName=Answer3, Path=Text}"
+                   Click="ChangeButtonBorder">
+            <TextBlock Name="Answer3" Text="{Binding Answers[2]}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Foreground="White" TextWrapping="Wrap"></TextBlock>
+        </Button>
+
+
+        <Button Grid.Row="2" Grid.Column="3" BorderBrush="Gray" BorderThickness="3"  Background="Transparent" Width="200" Height="150" Command="{Binding SelectAnswerCommand}" 
+                  Loaded="Button_Loaded"
+                  CommandParameter="{Binding ElementName=Answer4, Path=Text}"
+                  Click="ChangeButtonBorder">
+            <TextBlock Name="Answer4" Text="{Binding Answers[3]}" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="20" Foreground="White" TextWrapping="Wrap"></TextBlock>
+        </Button>
+
 
 
         <Button Grid.Row="4" Grid.ColumnSpan="4" Focusable="False"
@@ -159,7 +182,7 @@
             Background="#FF433F3F"
             BorderBrush="#FF2C2B2B"/>
 
-        <TextBlock Grid.Row="6" Grid.Column="1" TextAlignment="Center" FontSize="25">
+        <TextBlock Grid.Row="6" Grid.ColumnSpan="4" TextAlignment="Center" FontSize="25">
             <TextBlock.Style>
                 <Style TargetType="TextBlock">
                     <Style.Triggers>

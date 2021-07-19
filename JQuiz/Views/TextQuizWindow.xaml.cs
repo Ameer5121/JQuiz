@@ -31,12 +31,12 @@ namespace JQuiz.Views
 
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            (DataContext as TextQuizViewModel).OnAnswerCheck += ResetTextBoxFocus;
+            (DataContext as TextQuizViewModel).AnswerCheck += ResetTextBoxFocus;
         }
 
         private void OnUnLoaded(object sender, RoutedEventArgs e)
         {
-           (DataContext as TextQuizViewModel).OnAnswerCheck -= ResetTextBoxFocus;
+           (DataContext as TextQuizViewModel).AnswerCheck -= ResetTextBoxFocus;
             Loaded -= OnLoaded;
             Unloaded -= OnUnLoaded;
             GC.Collect();
@@ -78,6 +78,6 @@ namespace JQuiz.Views
                 ResetTextBoxFocus(this, EventArgs.Empty);
                 e.Handled = true;
             }
-        }
+        } 
     }
 }

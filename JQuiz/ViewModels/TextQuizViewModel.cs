@@ -12,14 +12,9 @@ namespace JQuiz.ViewModels
 {
     class TextQuizViewModel : QuizViewModelBase
     {
-        public event EventHandler OnAnswerCheck;
+        public event EventHandler AnswerCheck;
         public TextQuizViewModel(Dictionary<string, string> questionsAndAnswers, string rawContent) : base(questionsAndAnswers, rawContent)
         {
-        }
-        public string CurrentAnswer
-        {
-            get => _currentAnswer;
-            set => SetPropertyValue(ref _currentAnswer, value);
         }
         protected override void CheckAnswer()
         {
@@ -35,32 +30,15 @@ namespace JQuiz.ViewModels
                 UserInput = null;
             }
         }                                                
-        protected override void SelectAnswer(SelectionType answerType)
-        {
-            if (_questionIndex < _questionsAndAnswers.Count - 1)
-            {
-                if (answerType == SelectionType.Next) _questionIndex++;
-                else if (answerType == SelectionType.Previous && _questionIndex != 0) _questionIndex--;
-                var question = _questionsAndAnswers.ElementAt(_questionIndex);
-                CurrentQuestion = question.Key;
-                CurrentAnswer = question.Value;
-                Reset();
-            }
-            else
-            {
-                _questionIndex = 0;
-                SelectAnswer(SelectionType.CurrentIndex);
-            }                     
-        }
         protected override void RevealAnswer()
         {
-            UserInput = _currentAnswer;
+            UserInput = _currentCorrectAnswer;
         }
         private void ResetFocus()
         {
-            OnAnswerCheck?.Invoke(this, EventArgs.Empty);
+            AnswerCheck?.Invoke(this, EventArgs.Empty);
         }
-        protected override void Reset()
+        protected override void ResetInput()
         {
             UserInput = null;
             IsAnswerCorrect = null;

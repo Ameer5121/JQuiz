@@ -21,12 +21,32 @@ namespace JQuiz.Views
     /// </summary>
     public partial class SelectionQuizWindow : Window
     {
+        private List<Button> _selectableButtons;
+        private Button _currentSelectedButton;
         public SelectionQuizWindow(Dictionary<string, string> questionsAndAnswers, string rawContent)
         {
             InitializeComponent();
             DataContext = new SelectionQuizViewModel(questionsAndAnswers, rawContent);
+            _selectableButtons = new List<Button>();
+        }
+        private void Button_Loaded(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            _selectableButtons.Add(button);
         }
 
+        private void ChangeButtonBorder(object sender, RoutedEventArgs e)
+        {
+            Button button = sender as Button;
+            if (button == _currentSelectedButton) return;
+            else if (_currentSelectedButton != null && button != _currentSelectedButton)
+            {
+                _currentSelectedButton.BorderBrush = new SolidColorBrush(Colors.Gray);
+            }
+            _currentSelectedButton = button;
+            _currentSelectedButton.BorderBrush = new SolidColorBrush(Colors.ForestGreen);
+
+        }
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ButtonState == e.LeftButton)

@@ -16,14 +16,14 @@ namespace JQuiz.ViewModels
     {
         protected int _questionIndex = 0;
         protected string _currentQuestion;
-        protected string _currentAnswer;
+        protected string _currentCorrectAnswer;
         protected string _rawContent;
         protected string _userInput;
         public bool? _isAnswerCorrect = null;
         protected IDictionary<string, string> _questionsAndAnswers;
         public ICommand Check => new RelayCommand(CheckAnswer);
         public ICommand Reveal => new RelayCommand(RevealAnswer);
-        public ICommand Select => new RelayCommand(SelectAnswer, CanChangeQuestion);
+        public ICommand Select => new RelayCommand(SelectQuestion, CanChangeQuestion);
         public ICommand Randomize => new RelayCommand(RandomizeQuestions, CanChangeQuestion);
         public ICommand Redo => new RelayCommand(StartOver, CanChangeQuestion);
 
@@ -32,7 +32,7 @@ namespace JQuiz.ViewModels
             this._questionsAndAnswers = questionsAndAnswers;
             this._rawContent = rawContent;
             _currentQuestion = _questionsAndAnswers.Keys.First();
-            _currentAnswer = _questionsAndAnswers[_currentQuestion];
+            _currentCorrectAnswer = _questionsAndAnswers[_currentQuestion];
         }
         public string CurrentQuestion
         {
@@ -56,7 +56,23 @@ namespace JQuiz.ViewModels
         {
             return _questionsAndAnswers.Count == 1 ? false : true;
         }
-        protected abstract void SelectAnswer(SelectionType answerType);
+        protected virtual void SelectQuestion(SelectionType answerType)
+        {
+            if (_questionIndex < _questionsAndAnswers.Count - 1)
+            {
+                if (answerType == SelectionType.Next) _questionIndex++;
+                else if (answerType == SelectionType.Previous && _questionIndex != 0) _questionIndex--;
+                var question = _questionsAndAnswers.ElementAt(_questionIndex);
+                CurrentQuestion = question.Key;
+                _currentCorrectAnswer = question.Value;
+                ResetInput();
+            }
+            else
+            {
+                _questionIndex = 0;
+                SelectQuestion(SelectionType.CurrentIndex);
+            }
+        }
 
         protected void RandomizeQuestions()
         {
@@ -67,12 +83,12 @@ namespace JQuiz.ViewModels
             questionsAndAnswers.AddSplittedContent(splittedContent);
             this._questionsAndAnswers = questionsAndAnswers;
             _questionIndex = 0;
-            SelectAnswer(SelectionType.CurrentIndex);
+            SelectQuestion(SelectionType.CurrentIndex);
         }
 
         protected abstract void RevealAnswer();
 
-        protected abstract void Reset();
+        protected abstract void ResetInput();
 
         protected void StartOver()
         {
@@ -82,7 +98,7 @@ namespace JQuiz.ViewModels
             questionsAndAnswers.AddSplittedContent(splittedContent);
             this._questionsAndAnswers = questionsAndAnswers;
             _questionIndex = 0;
-            SelectAnswer(SelectionType.CurrentIndex);
+            SelectQuestion(SelectionType.CurrentIndex);
         }
     }
 }
