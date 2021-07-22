@@ -23,21 +23,25 @@ namespace JQuiz.Views
     {
         private List<Button> _selectableButtons;
         private Button _currentSelectedButton;
+        private SelectionQuizViewModel selectionQuizViewModel;
         public SelectionQuizWindow(Dictionary<string, string> questionsAndAnswers, string rawContent)
         {
             InitializeComponent();
             DataContext = new SelectionQuizViewModel(questionsAndAnswers, rawContent);
+            selectionQuizViewModel = DataContext as SelectionQuizViewModel;
             _selectableButtons = new List<Button>();
             Loaded += OnLoaded;
             Unloaded -= OnUnLoaded;
         }
         private void OnLoaded(object sender, RoutedEventArgs e)
         {
-            (DataContext as SelectionQuizViewModel).Reset += ResetBorderBrush;
+            selectionQuizViewModel.ResetSelection += ResetBorderBrush;
+            selectionQuizViewModel.Reveal += RevealCorrectBorder;
         }
+
         private void OnUnLoaded(object sender, RoutedEventArgs e)
         {
-            (DataContext as SelectionQuizViewModel).Reset -= ResetBorderBrush;
+            selectionQuizViewModel.ResetSelection -= ResetBorderBrush;
             Loaded -= OnLoaded;
             Unloaded -= OnUnLoaded;
         }
@@ -60,10 +64,27 @@ namespace JQuiz.Views
             _currentSelectedButton.BorderBrush = new SolidColorBrush(Colors.ForestGreen);
 
         }
+
+        private void RevealCorrectBorder(object sender, EventArgs e)
+        {
+            foreach (Button button in _selectableButtons)
+            {
+                TextBlock textBlock = button.Content as TextBlock;
+                if(textBlock.Text == selectionQuizViewModel.CurrentCorrectAnswer)
+                {
+                    _currentSelectedButton = button;
+                    _currentSelectedButton.BorderBrush = new SolidColorBrush(Colors.ForestGreen);
+                    selectionQuizViewModel.SelectedAnswer = textBlock.Text;
+                    return;
+                }
+            }
+        }
         private void ResetBorderBrush(object sender, EventArgs e)
         {
             _currentSelectedButton.BorderBrush = new SolidColorBrush(Colors.Gray);
+            _currentSelectedButton = null;
         }
+
         private void Window_MouseDown(object sender, MouseButtonEventArgs e)
         {
             if (e.ButtonState == e.LeftButton)

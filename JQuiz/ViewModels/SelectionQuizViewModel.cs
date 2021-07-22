@@ -13,11 +13,17 @@ namespace JQuiz.ViewModels
     {
         private string[] _answers;
         private string _selectedAnswer;
-        public event EventHandler Reset;
+        public event EventHandler ResetSelection;
+        public event EventHandler Reveal;
         public string[] Answers
         {
             get => _answers;
             set => SetPropertyValue(ref _answers, value);
+        }
+        public string SelectedAnswer
+        {
+            get => _selectedAnswer;
+            set => _selectedAnswer = value;
         }
         public ICommand SelectAnswerCommand => new RelayCommand(SelectAnswer);
         public SelectionQuizViewModel(Dictionary<string, string> questionsAndAnswers, string rawContent) : base(questionsAndAnswers, rawContent)
@@ -48,14 +54,19 @@ namespace JQuiz.ViewModels
         }
         protected override void RevealAnswer()
         {
-            throw new NotImplementedException();
+            TryResetInput();
+            Reveal?.Invoke(this, EventArgs.Empty);
         }
 
-        protected override void ResetInput()
+        protected override bool TryResetInput()
         {
-            _selectedAnswer = null;
-            IsAnswerCorrect = null;
-            Reset?.Invoke(this, EventArgs.Empty);
+            if (_selectedAnswer != null)
+            {
+                _selectedAnswer = null;
+                ResetSelection?.Invoke(this, EventArgs.Empty);
+                return true;
+            }
+            return false;
         }
 
         private string[] InitializeRandomAnswers()
@@ -69,7 +80,7 @@ namespace JQuiz.ViewModels
             {
                 if (answers[i] == null)
                 {
-                    answers[i] = filteredCollection.ElementAt(random.Next(0, _questionsAndAnswers.Count - 1)).Value;
+                    answers[i] = filteredCollection.ElementAt(random.Next(0, filteredCollection.Count() - 1)).Value;
                     answersSelected.Add(answers[i]);
                     filteredCollection = filteredCollection.Where(x =>
                     {

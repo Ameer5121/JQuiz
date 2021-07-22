@@ -38,10 +38,14 @@ namespace JQuiz.ViewModels
         {
             ResetWindowFocus?.Invoke(this, EventArgs.Empty);
         }
-        protected override void ResetInput()
+        protected override bool TryResetInput()
         {
-            UserInput = null;
-            IsAnswerCorrect = null;
+            if(UserInput != null)
+            {
+                UserInput = null;
+                return true;
+            }
+            return false;
         }
     }
 }

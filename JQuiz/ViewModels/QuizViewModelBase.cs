@@ -23,7 +23,8 @@ namespace JQuiz.ViewModels
         protected IDictionary<string, string> _questionsAndAnswers;
         public ICommand Check => new RelayCommand(CheckAnswer);
         public ICommand Reveal => new RelayCommand(RevealAnswer);
-        public ICommand Select => new RelayCommand(SelectQuestion, CanChangeQuestion);
+        public ICommand SelectNextQuestion => new RelayCommand(SelectQuestion, CanChangeQuestion);
+        public ICommand SelectPreviousQuestion => new RelayCommand(SelectQuestion, CanChangePreviousQuestion);
         public ICommand Randomize => new RelayCommand(RandomizeQuestions, CanChangeQuestion);
         public ICommand Redo => new RelayCommand(StartOver, CanChangeQuestion);
 
@@ -49,9 +50,13 @@ namespace JQuiz.ViewModels
             get => _userInput;
             set => SetPropertyValue(ref _userInput, value);
         }
-
+        public string CurrentCorrectAnswer => _currentCorrectAnswer;
         protected abstract void CheckAnswer();
 
+        private bool CanChangePreviousQuestion()
+        {
+            return _questionIndex == 0 ? false : true;
+        }
         private bool CanChangeQuestion()
         {
             return _questionsAndAnswers.Count == 1 ? false : true;
@@ -65,12 +70,13 @@ namespace JQuiz.ViewModels
                 var question = _questionsAndAnswers.ElementAt(_questionIndex);
                 CurrentQuestion = question.Key;
                 _currentCorrectAnswer = question.Value;
-                ResetInput();
+                TryResetInput();
+                TryResetStatus();
             }
             else
             {
                 _questionIndex = 0;
-                SelectQuestion(SelectionType.CurrentIndex);
+                SelectQuestion(SelectionType.CurrentIndex);              
             }
         }
 
@@ -88,7 +94,17 @@ namespace JQuiz.ViewModels
 
         protected abstract void RevealAnswer();
 
-        protected abstract void ResetInput();
+        protected abstract bool TryResetInput();
+
+        private bool TryResetStatus()
+        {
+            if (_isAnswerCorrect != null)
+            {
+                IsAnswerCorrect = null;
+                return true;
+            }
+            return false;
+        }
 
         protected void StartOver()
         {

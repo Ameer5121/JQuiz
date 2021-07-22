@@ -10,12 +10,9 @@ namespace JQuiz.Extensions
     {
         public static void AddSplittedContent(this Dictionary<string, string> dic, string[] splittedContent)
         {
-            for (int x = 0; x < splittedContent.Length - 1; x++)
+            for (int x = 0; x <= splittedContent.Length - 1; x++)
             {
-                if (!dic.ContainsKey(splittedContent[x]))
-                {
-                    dic.Add(splittedContent[x], splittedContent[++x]);
-                }
+                dic.Add(splittedContent[x], splittedContent[++x]);
             }
         }
     }
