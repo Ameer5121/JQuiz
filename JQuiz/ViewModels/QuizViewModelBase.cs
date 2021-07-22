@@ -24,10 +24,9 @@ namespace JQuiz.ViewModels
         public ICommand Check => new RelayCommand(CheckAnswer);
         public ICommand Reveal => new RelayCommand(RevealAnswer);
         public ICommand SelectNextQuestion => new RelayCommand(SelectQuestion, CanChangeQuestion);
-        public ICommand SelectPreviousQuestion => new RelayCommand(SelectQuestion, CanChangePreviousQuestion);
+        public ICommand SelectPreviousQuestion => new RelayCommand(SelectQuestion, CanSelectPreviousQuestion);
         public ICommand Randomize => new RelayCommand(RandomizeQuestions, CanChangeQuestion);
         public ICommand Redo => new RelayCommand(StartOver, CanChangeQuestion);
-
         protected QuizViewModelBase(Dictionary<string, string> questionsAndAnswers, string rawContent)
         {
             this._questionsAndAnswers = questionsAndAnswers;
@@ -53,7 +52,7 @@ namespace JQuiz.ViewModels
         public string CurrentCorrectAnswer => _currentCorrectAnswer;
         protected abstract void CheckAnswer();
 
-        private bool CanChangePreviousQuestion()
+        private bool CanSelectPreviousQuestion()
         {
             return _questionIndex == 0 ? false : true;
         }
@@ -61,6 +60,7 @@ namespace JQuiz.ViewModels
         {
             return _questionsAndAnswers.Count == 1 ? false : true;
         }
+
         protected virtual void SelectQuestion(SelectionType answerType)
         {
             if (_questionIndex < _questionsAndAnswers.Count - 1)
