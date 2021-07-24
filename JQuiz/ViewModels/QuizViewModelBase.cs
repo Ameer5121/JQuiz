@@ -23,10 +23,10 @@ namespace JQuiz.ViewModels
         protected IDictionary<string, string> _questionsAndAnswers;
         public ICommand Check => new RelayCommand(CheckAnswer);
         public ICommand Reveal => new RelayCommand(RevealAnswer);
-        public ICommand SelectNextQuestion => new RelayCommand(SelectQuestion, CanChangeQuestion);
-        public ICommand SelectPreviousQuestion => new RelayCommand(SelectQuestion, CanSelectPreviousQuestion);
-        public ICommand Randomize => new RelayCommand(RandomizeQuestions, CanChangeQuestion);
-        public ICommand Redo => new RelayCommand(StartOver, CanChangeQuestion);
+        public ICommand SelectNextQuestion => new RelayCommand(SelectQuestion, HasMoreThanOneQuestion);
+        public ICommand SelectPreviousQuestion => new RelayCommand(SelectQuestion, QuestionIndexNotZero);
+        public ICommand Randomize => new RelayCommand(RandomizeQuestions, HasMoreThanOneQuestion);
+        public ICommand Redo => new RelayCommand(StartOver, QuestionIndexNotZero);
         protected QuizViewModelBase(Dictionary<string, string> questionsAndAnswers, string rawContent)
         {
             this._questionsAndAnswers = questionsAndAnswers;
@@ -52,15 +52,10 @@ namespace JQuiz.ViewModels
         public string CurrentCorrectAnswer => _currentCorrectAnswer;
         protected abstract void CheckAnswer();
 
-        private bool CanSelectPreviousQuestion()
-        {
-            return _questionIndex == 0 ? false : true;
-        }
-        private bool CanChangeQuestion()
-        {
-            return _questionsAndAnswers.Count == 1 ? false : true;
-        }
-
+        private bool QuestionIndexNotZero() => _questionIndex > 0;
+        
+        private bool HasMoreThanOneQuestion() => _questionsAndAnswers.Count > 1;
+       
         protected virtual void SelectQuestion(SelectionType answerType)
         {
             if (_questionIndex < _questionsAndAnswers.Count - 1)
