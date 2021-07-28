@@ -10,9 +10,11 @@ Open up a .txt file and and you can write Questions and Answers with special syn
 Once finished, you can then inject it into the application to quiz you about them.
 
 TextMode:
+
 ![unknown](https://user-images.githubusercontent.com/71935713/123854871-e8f11e00-d927-11eb-9b59-c36c3c8a470b.png)
 
 SelectionMode:
+
 ![pic1](https://user-images.githubusercontent.com/71935713/127339113-9c60b7bf-d537-4f2f-a8b1-3eb4a0df9d1c.png)
 
 
